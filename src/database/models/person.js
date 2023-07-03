@@ -36,10 +36,6 @@ Person.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            isAlpha: {
-                args: true,
-                msg: "the name is only letters"
-            },
             len: {
                 args: [3, 50],
                 msg:"max-characters '50' and min-characters '3'"
@@ -50,10 +46,6 @@ Person.init({
         type: DataTypes.STRING,
         allowNull: false,
         validate: {
-            isAlpha: {
-                args: true,
-                msg: "the name is only letters"
-            },
             len: {
                 args: [3, 50],
                 msg:"max-characters '50' and min-characters '3'"

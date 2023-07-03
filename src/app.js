@@ -15,7 +15,7 @@ const server = app.listen(PORT, () => {
     console.log(`listening in PORT ${PORT}`)
 
 
-    sequelize.sync({ forec: true }).then(() => {
+    sequelize.sync({ force: false }).then(() => {
         console.log('DB conected');
     }).catch(err => {
         console.log(`Erro: ${err}`);
