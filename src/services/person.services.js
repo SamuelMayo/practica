@@ -20,15 +20,30 @@ const readOne = async (id) => {
 
 const deleteOne = async (id) => {
     Person.destroy({
+        where: {
+            id
+        }
+    }).then(result => console.log(result)).catch(err => console.log(err))
+}
+
+const update = async (id, user) => {
+    const {name, lastName,phone,email}= user
+    Person.update({
+        name,
+        lastName,
+        phone,
+        email
+    },{
         where:{
             id
         }
-    }).then(result => console.log(result)).catch(err=>console.log(err))
+    }).then(result=>console.log(result)).catch(err=>console.log(err))
 }
 
 export default {
     readAll,
     save,
     readOne,
-    deleteOne
+    deleteOne,
+    update
 }

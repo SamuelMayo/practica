@@ -35,9 +35,26 @@ const del = async (req, res) => {
     res.json(result);
 }
 
+const edit = async (req,res) =>{
+    const { id } = req.params;
+    if (!id) return res.status(400).send({ status: 'Error', error: 'the Id did not arrive' })
+    const exist = await personServices.readOne(id);
+    if (!exist) return res.status(400).send({ status: 'Error', error: 'person not found' })
+    const {name, lastName, phone, email} = req.body;
+    const user = {
+        name,
+        lastName,
+        phone,
+        email
+    }
+    const result = await personServices.update(id,user);
+    res.json(result)
+}
+
 export default {
     getAll,
     save,
     getById,
-    del
+    del,
+    edit
 }
