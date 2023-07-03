@@ -1,7 +1,8 @@
 import Person from "../database/models/person.js";
 
 const readAll= async ()=>{
-    return ("hello in the services")
+    const result =await Person.findAll();
+    return result
 }
 
 const save = async (user)=>{
