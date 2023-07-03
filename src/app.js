@@ -1,8 +1,11 @@
-import express from 'express';
+import express, { urlencoded } from 'express';
 import sequelize from './database/db';
 
 const app = express();
 const PORT = process.env.PORT || 8080;
+
+app.use(express.json());
+app.use(express.urlencoded({extended:true}))
 
 const server = app.listen(PORT, () => {
     console.log(`listening in PORT ${PORT}`)
