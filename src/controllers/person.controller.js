@@ -1,13 +1,13 @@
 import personServices from "../services/person.services.js"
 
-const getAll= async(req,res)=>{
-    const result= await personServices.readAll();
+const getAll = async (req, res) => {
+    const result = await personServices.readAll();
     res.send(result)
 }
 
-const save = async (req,res)=>{
-    const {name,lastName,phone,email}= req.body
-    if(!name || !lastName || !phone || !email){ return res.status(400).send({ status: 'error', error: 'valores Incompletos' })}
+const save = async (req, res) => {
+    const { name, lastName, phone, email } = req.body
+    if (!name || !lastName || !phone || !email) { return res.status(400).send({ status: 'error', error: 'valores Incompletos' }) }
     const user = {
         name,
         lastName,
@@ -18,17 +18,26 @@ const save = async (req,res)=>{
     res.send({ status: 'success', payload: result })
 }
 
-const getById = async(req,res)=>{
-    const {id} = req.params;
-    if(!id) return res.status(400).send({ status: 'Error', error: 'the Id did not arrive' })
+const getById = async (req, res) => {
+    const { id } = req.params;
+    if (!id) return res.status(400).send({ status: 'Error', error: 'the Id did not arrive' })
     const result = await personServices.readOne(id);
-    if(result===null) return res.status(400).send({ status: 'Error', error: 'person not found' })
+    if (!result) return res.status(400).send({ status: 'Error', error: 'person not found' })
     res.json(result);
 }
 
+const del = async (req, res) => {
+    const { id } = req.params;
+    if (!id) return res.status(400).send({ status: 'Error', error: 'the Id did not arrive' })
+    const exist = await personServices.readOne(id);
+    if (!exist) return res.status(400).send({ status: 'Error', error: 'person not found' })
+    const result = await personServices.deleteOne(id);
+    res.json(result);
+}
 
 export default {
     getAll,
     save,
-    getById
+    getById,
+    del
 }
